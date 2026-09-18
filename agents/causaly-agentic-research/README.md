@@ -40,7 +40,7 @@ content.markdown (resolved inline citations) + content.evidence (keyed bibliogra
 
 **Why the two-call contract dominates the instructions.** `causaly_research` returns identifiers, not an answer. `causaly_wait_for_research` performs a bounded server-side wait, so a single call usually returns while the run is still in flight. Five to twenty poll calls is normal, and a five-to-ten-minute run is not a stall. The instructions treat `running`/`queued` as the expected interim state and distinguish it from two genuinely different failures: a terminal `message.status === 'failed'` (report `message.error`, stop) and a transport-level error with no `message` at all — 401, 5xx — which is retried once and then reported with its status code. Polling also stops after roughly twenty polls or fifteen minutes, reporting elapsed time and the `chatId`. In no case does the agent substitute its own answer.
 
-**Citation fidelity.** `content.markdown` ships with citations already resolved as inline numbered links — `[1](url)` single, `([1](url1); [2](url2))` grouped. The body is relayed verbatim because Agentic Research's inline numbers are its *verified* claim-to-source bindings; rewriting a sentence silently rebinds a citation to text Causaly never attributed it to. The bibliography is deliberately not in the markdown — it lives in `content.evidence`, keyed by `citationId` and carrying `number`, `title`, `externalUrl`, and `internalUrl`. A `**Sources**` block joins it on `number`, preferring `internalUrl` and falling back to `externalUrl`, and is produced **only when the user asks for one** — the trigger is an explicit request in the prompt, never the agent's own judgement about answer length. A light integrity check runs only when that block is produced: an inline `[N]` with no matching `evidence` entry is noted in one line and nothing else is altered — no renumbering, no dropped sentences, and no re-render, since a verbatim re-render is byte-identical and could not fix anything anyway.
+**Citation fidelity.** `content.markdown` ships with citations already resolved as inline numbered links — `[1](url)` single, `([1](url1); [2](url2))` grouped. The body is relayed verbatim because Agentic Research's inline numbers are Causaly-provided claim-to-source citation mappings; rewriting a sentence silently rebinds a citation to text Causaly never attributed it to. The bibliography is deliberately not in the markdown — it lives in `content.evidence`, keyed by `citationId` and carrying `number`, `title`, `externalUrl`, and `internalUrl`. A `**Sources**` block joins it on `number`, preferring `internalUrl` and falling back to `externalUrl`, and is produced **only when the user asks for one** — the trigger is an explicit request in the prompt, never the agent's own judgement about answer length. A light integrity check runs only when that block is produced: an inline `[N]` with no matching `evidence` entry is noted in one line and nothing else is altered — no renumbering, no dropped sentences, and no re-render, since a verbatim re-render is byte-identical and could not fix anything anyway.
 
 **Model role.** The model orchestrates and renders; it is explicitly instructed not to contribute biomedical claims. No sampling options are set — reasoning-model deployments reject `temperature` and `topP`, and relay fidelity is enforced by the instructions rather than by decoding parameters. Any agent output beyond the verbatim block is limited to a single procedural line (status, error, next step).
 
@@ -119,6 +119,13 @@ require_approval:
 That gates question submission only; the three read operations proceed unprompted. Foundry documents four accepted values — `always`, `never`, `{"never": [...]}` and `{"always": [...]}` — so use one key, not both.
 
 Note that approval is a separate gate from OAuth consent — a user may need to clear both on their first call.
+
+### Data handling and terms
+
+User queries are sent to the Causaly Agentic Research service for processing, and the results are returned by that service. The MCP server acts under the signed-in user's own Causaly account and entitlements.
+
+- [Causaly Privacy Policy](https://www.causaly.com/legal/privacy-policy)
+- [Causaly legal terms](https://get.causaly.com/legal) — Terms of Service, Acceptable Use Policy, and Data Processing Addendum
 
 ## Usage
 

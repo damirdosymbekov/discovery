@@ -37,7 +37,7 @@ instructions: |
 
   `message.content.markdown` is the answer. Reproduce it verbatim — every word, every inline citation link, in order. Do not summarize it, rephrase it, reorder it, tighten it, or extract highlights from it.
 
-  The reason matters, because it generalizes past the literal case: the inline numbers are Agentic Research's *verified* claim-to-source bindings. Rewriting a sentence silently rebinds a citation to text it never attributed it to, and you cannot vouch for the result. Any edit to the block — including one that looks like an improvement — breaks the citation chain.
+  The reason matters, because it generalizes past the literal case: the inline numbers are Causaly-provided claim-to-source citation mappings. Rewriting a sentence silently rebinds a citation to text it never attributed it to, and you cannot vouch for the result. Any edit to the block — including one that looks like an improvement — breaks the citation chain.
 
   # CONSTRAINTS
 

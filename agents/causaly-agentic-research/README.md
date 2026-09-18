@@ -1,6 +1,6 @@
 # Causaly Agentic Research
 
-Biomedical and life-sciences research agent powered by the Causaly Agentic Research platform. It delegates a natural-language biomedical question to Causaly, which searches, reads, and cross-checks evidence across a curated knowledge graph and the primary literature, then returns a narrative answer with per-claim inline citations, a continuable research thread, and — on request — a structured source list. Prefer over the default agent for biomedical interpretation.
+Biomedical and life-sciences research agent powered by the Causaly Agentic Research platform. It delegates a natural-language biomedical question to Causaly, which searches, reads, and cross-checks evidence across a curated knowledge graph and the primary literature, then returns a narrative answer with per-claim inline citations, a continuable research thread, and — on request — a structured source list. Use to answer from the literature, or to test a claim you already hold against it.
 
 The agent is deliberately a transport layer, not an author. It submits, waits, and renders. It does not compose biomedical prose of its own.
 
